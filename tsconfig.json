@@ -1,0 +1,11 @@
+{
+    "exclude": [
+        "node_modules"
+    ],
+    "compilerOptions": {
+        "sourceMap": true,
+        "declaration": false,
+        "noImplicitAny": true,
+        "suppressImplicitAnyIndexErrors": false
+    }
+}
