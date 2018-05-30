@@ -1,7 +1,8 @@
 import { WorkSheet } from 'xlsx'
+import { Node, SourceNode, Company, Lot, CompanyCollection } from '../client/src/app/entities'
 
-export function parseFlowSheet(sheet: WorkSheet) {
-    let db: { [key: string]: Node } = {}
+export function parseFlowSheet(sheet: WorkSheet): SourceNode[] {
+    let db: { [key: string]: SourceNode } = {}
 
     for (let rowIndex = 2; ; rowIndex++) {
         let a = <Cell>sheet[`A${rowIndex}`]
@@ -16,26 +17,31 @@ export function parseFlowSheet(sheet: WorkSheet) {
         }
 
         let name = strip(c.v)
-        let source = db[name] = db[name] || <Node>{
+        let source = db[name] = db[name] || <SourceNode>{
             regno: a.v,
             instCode: b.v,
             name,
-            children: {}
+            targets: []
         }
 
-        let child = <Node>{
+        let target = <Node>{
             regno: d ? d.v : null,
             instCode: e.v,
             name: strip(f.v)
         }
-        source.children[child.name] = child;
+        source.targets.push(target)
     }
 
-    return db
+    let result = []
+    for (const key in db) {
+        result.push(db[key])
+    }
+
+    return result
 }
 
 export function parseCompanySheet(sheet: WorkSheet) {
-    let db: { [index: string]: Company } = {}
+    let db: CompanyCollection = {}
 
     for (let rowIndex = 2; ; rowIndex++) {
         let a = <Cell>sheet[`A${rowIndex}`]
@@ -88,24 +94,4 @@ function strip(value: string) {
 
 export interface Cell {
     v: string
-}
-
-export interface Node {
-    regno: string
-    instCode: string
-    name: string
-    children: { [key: string]: Node }
-}
-
-export interface Lot {
-    no: string
-    qty: number
-}
-
-export class Company {
-    uno: string
-    name: string
-    instCodes: string[]
-    purchaseLots: Lot[]
-    saleLots: Lot[]
 }

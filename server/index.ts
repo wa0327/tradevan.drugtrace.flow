@@ -8,7 +8,8 @@ const flows = parseFlowSheet(flowSheet)
 const companySheet = workbook.Sheets[workbook.SheetNames[1]]
 const companies = parseCompanySheet(companySheet)
 
-const port = 8080
+const host = '10.37.129.2'
+const port = 8088
 const server = createServer((req, res) => {
     let data: any
 
@@ -24,6 +25,7 @@ const server = createServer((req, res) => {
 
     if (data) {
         res.setHeader('CONTENT-TYPE', 'application/json')
+        res.setHeader('Access-Control-Allow-Origin', '*')
         res.write(JSON.stringify(data))
         res.statusCode = 200
     } else {
@@ -32,5 +34,5 @@ const server = createServer((req, res) => {
 
     res.end()
 })
-server.listen(port)
-console.log(`server is listening on ${port}`)
+server.listen(port, host)
+console.log(`server is listening on http://${host}:${port}/`)

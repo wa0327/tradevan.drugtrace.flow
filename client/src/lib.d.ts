@@ -1,0 +1,1 @@
+declare function __webpack_require__(moduleId: string): any

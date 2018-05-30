@@ -5,9 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "chrome",
+            "request": "launch",
+            "name": "launch client",
+            "url": "http://10.37.129.2:8080/",
+            "webRoot": "${workspaceFolder}/client"
+        },
+        {
             "type": "node",
             "request": "launch",
-            "name": "debug convert.js",
+            "name": "launch server",
             "runtimeArgs": [
                 "--require",
                 "ts-node/register"

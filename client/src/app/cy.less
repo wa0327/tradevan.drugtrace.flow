@@ -1,0 +1,33 @@
+node {
+    width: 20px;
+    height: 20px;
+    label: data(name);
+    font-size: 18px;
+    text-valign: center;
+    text-halign: center;
+    background-color: #555;
+    text-outline-color: #555;
+    text-outline-width: 2px;
+    color: #fff;
+    overlay-padding: 6px;
+    z-index: 9999;
+    font-family: "Microsoft JhengHei", "Apple LiGothic Medium";
+
+    &.central {
+        background-color: red;
+        text-outline-color: red;
+    }
+
+    &:selected {
+        color: lightgreen;
+    }
+}
+
+edge {
+    curve-style: bezier;
+    target-arrow-shape: triangle;
+    opacity: 1;
+    line-color: #bbb;
+    width: 1px;
+    overlay-padding: 3px;
+}

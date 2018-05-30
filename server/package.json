@@ -1,0 +1,21 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "server",
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node index.ts"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "ts-node": "~6.0",
+    "typescript": "~2.8",
+    "xlsx": "~0.12"
+  },
+  "devDependencies": {
+    "@types/node": "^10"
+  }
+}
