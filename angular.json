@@ -19,7 +19,6 @@
               "src/styles.less"
             ],
             "assets": [
-              "src/styles-cy.css",
               {
                 "glob": "jquery.js",
                 "input": "node_modules/jquery/dist",
@@ -31,7 +30,9 @@
           },
           "configurations": {
             "production": {
-              "aot": true
+              "aot": true,
+              "buildOptimizer": true,
+              "optimization": true
             }
           }
         },

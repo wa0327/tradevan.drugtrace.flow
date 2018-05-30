@@ -18,7 +18,7 @@ export interface Company {
     name: string
     instCodes: string[]
     purchaseLots: Lot[]
-    saleLots: Lot[]
+    salesLots: Lot[]
 }
 
 export interface CompanyCollection {

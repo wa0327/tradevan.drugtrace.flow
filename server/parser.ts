@@ -1,5 +1,5 @@
 import { WorkSheet } from 'xlsx'
-import { Node, SourceNode, Company, Lot, CompanyCollection } from '../client/src/app/entities'
+import { Node, SourceNode, Company, Lot, CompanyCollection } from '../src/app/entities'
 
 export function parseFlowSheet(sheet: WorkSheet): SourceNode[] {
     let db: { [key: string]: SourceNode } = {}
@@ -56,14 +56,14 @@ export function parseCompanySheet(sheet: WorkSheet) {
 
         let instCodes = c.v.split('、')
         let purchaseLots = d ? parseLots(d.v) : []
-        let saleLots = e ? parseLots(e.v) : []
+        let salesLots = e ? parseLots(e.v) : []
 
         let company = <Company>{
             uno: a.v,
             name: strip(b.v),
             instCodes,
             purchaseLots,
-            saleLots
+            salesLots
         }
 
         db[company.name] = company

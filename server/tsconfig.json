@@ -1,5 +1,4 @@
 {
-    "extends": "../tsconfig.json",
     "compilerOptions": {
         "target": "es6",
         "lib": [
@@ -7,6 +6,9 @@
         ],
         "module": "commonjs",
         "moduleResolution": "node",
-        "outDir": "out"
+        "outDir": "out",
+        "sourceMap": true,
+        "declaration": false,
+        "noImplicitAny": true
     }
 }

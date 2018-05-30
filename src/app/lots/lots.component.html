@@ -1,0 +1,15 @@
+<table>
+    <caption [innerText]="caption"></caption>
+    <thead>
+        <tr>
+            <th>批號</th>
+            <th>數量</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let o of lots">
+            <td [innerText]="o.no" class="no"></td>
+            <td [innerText]="o.qty | number" class="qty"></td>
+        </tr>
+    </tbody>
+</table>

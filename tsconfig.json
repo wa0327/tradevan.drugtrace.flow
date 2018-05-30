@@ -1,12 +1,18 @@
 {
-    "exclude": [
-        "node_modules"
-    ],
     "compilerOptions": {
+        "target": "es5",
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "outDir": "out",
         "sourceMap": true,
         "declaration": false,
         "noImplicitAny": true,
-        "suppressImplicitAnyIndexErrors": true,
-        "experimentalDecorators": true
-    }
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
+    },
+    "exclude": [
+        "server"
+    ]
 }

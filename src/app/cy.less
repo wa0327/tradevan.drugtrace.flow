@@ -1,0 +1,47 @@
+node {
+    width: 125px;
+    height: 45px;
+    shape: roundrectangle;
+    color: #ccc;
+    background-color: #222;
+
+    label: data(label);
+    font-family: "Microsoft JhengHei", "Apple LiGothic Medium";
+    font-size: 16px;
+    text-wrap: wrap;
+    text-max-width: 150px;
+    text-halign: center;
+    text-valign: center;
+    text-margin-y: 3;
+
+    &.central {
+        background-color: red;
+        z-index: 10;
+        font-size: 18px;
+    }
+
+    &.highlight {
+        color: white;
+        z-index: 100;
+
+        &:selected {
+            width: 130px;
+            height: 50px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    }
+}
+
+edge {
+    width: 3px;
+    curve-style: bezier;
+    line-style: solid;
+    target-arrow-shape: triangle;
+
+    &.highlight {
+        line-color: blue;
+        target-arrow-color: blue;
+        z-index: 50;
+    }
+}
