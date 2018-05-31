@@ -68,8 +68,10 @@ function runServe() {
     const browserConfig = <BuilderConfiguration<BrowserBuilderSchema>>getConfiguration(architect, project, target, config)
     const browserBuilder = new BrowserBuilder(context)
     const webpackConfig = browserBuilder.buildWebpackConfig(workspace.root, projectDetail.projectRoot, host, <NormalizedBrowserBuilderSchema>browserConfig.options)
-    const compiler = webpack(webpackConfig)
 
+    addLiveReload(webpackConfig)
+
+    const compiler = webpack(webpackConfig)
     var firstDone = true
     compiler.hooks.done.tap('serve.js', stats => {
         let str
@@ -132,4 +134,14 @@ function getConfiguration(architect: Architect, project: string, target: string,
         })
 
     return builderConfig
+}
+
+function addLiveReload(config: webpack.Configuration) {
+    const webpackDevServerPath = require.resolve('webpack-dev-server/client')
+    const clientAddress = 'http://0.0.0.0:0'
+    const entryPoint: string = `${webpackDevServerPath}?${clientAddress}`
+
+    const entry = <any>config.entry
+    const mainEntry = <any>entry.main
+    mainEntry.unshift(entryPoint)
 }
