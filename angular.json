@@ -40,7 +40,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "app:build",
-            "host": "10.37.129.2",
+            "host": "localhost",
             "port": 8080
           },
           "configurations": {

@@ -5,11 +5,12 @@
     <div>藥品名稱: "衛采"彌可保膠囊500微公克（甲鈷胺明）</div>
     <div>藥品許可證號:衛署藥製字第029630號</div>
 </div>
+
 <div id="company-dialog" title="藥品流向資料">
     <div *ngIf="company">
-        <div class="info" *ngIf="company.regno">
+        <div class="info" *ngIf="company.uno">
             <label>公司統編:</label>
-            <span [innerText]="company.regno"></span>
+            <span [innerText]="company.uno"></span>
         </div>
         <div class="info">
             <label>公司名稱:</label>
