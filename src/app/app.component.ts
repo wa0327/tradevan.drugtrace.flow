@@ -121,23 +121,29 @@ export class AppComponent implements OnInit {
     private bindEvents(cy: Core) {
         cy.on('select unselect', 'node', () => {
             this.hideWarning()
+
             const selected = cy.elements('node:selected')
+
+            // 將所有被選取的 node 及其全部下游都 highlight。
             const outgoers = selected.outgoers()
             const targets = outgoers.targets()
             const all = selected.union(outgoers).union(targets)
             all.addClass('highlight')
             cy.elements().not(all).removeClass('highlight')
-        })
 
-        cy.on('select', 'node', event => {
-            const target = <NodeCollection>event.target
-            const data = <NodeData>target.data()
-            const company = this.companies[data.node.name]
-            if (company) {
-                this.company = company
-                this.$companyDlg.dialog('open')
+            // 控制 node 小視窗。
+            if (selected.length === 1) {
+                const target = selected[0]
+                const data = <NodeData>target.data()
+                const company = this.companies[data.node.name]
+                if (company) {
+                    this.company = company
+                    this.$companyDlg.dialog('open')
+                } else {
+                    this.showWarning(`查無${data.node.name}的資料。`)
+                }
             } else {
-                this.showWarning(`查無${data.node.name}的資料。`)
+                this.$companyDlg.dialog('close')
             }
         })
     }
