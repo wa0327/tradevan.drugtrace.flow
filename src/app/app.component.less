@@ -5,7 +5,17 @@ div#cy {
     right: 0;
     bottom: 0;
     background-color: #ccc;
-    z-index: -999;
+}
+
+div.title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: white;
+
+    div {
+        font-weight: bold;
+    }
 }
 
 div.warning {
@@ -21,7 +31,7 @@ div.warning {
     text-align: center;
     border-radius: 5px;
 
-    z-index: 200;
+    z-index: 999;
 }
 
 div.info {

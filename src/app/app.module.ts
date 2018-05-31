@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core'
 import { HttpClientModule } from '@angular/common/http'
 import { AppComponent } from './app.component'
 import { LotsComponent } from './lots/lots.component'
+import { CompanyDialogComponent } from './company-dialog/company-dialog.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        LotsComponent
+        LotsComponent,
+        CompanyDialogComponent
     ],
     imports: [
         BrowserModule,

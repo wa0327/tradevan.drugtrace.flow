@@ -1,5 +1,10 @@
 <div id="cy"></div>
 
+<div class="title">
+    查詢條件:
+    <div>藥品名稱: "衛采"彌可保膠囊500微公克（甲鈷胺明）</div>
+    <div>藥品許可證號:衛署藥製字第029630號</div>
+</div>
 <div id="company-dialog" title="藥品流向資料">
     <div *ngIf="company">
         <div class="info" *ngIf="company.regno">
@@ -15,4 +20,4 @@
     </div>
 </div>
 
-<div class="warning" [@warning]="warning" [innerText]="warningMessage"></div>
+<div class="warning" [@showHide]="warning" [innerText]="warningMessage"></div>

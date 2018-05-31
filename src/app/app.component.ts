@@ -13,9 +13,9 @@ import { Node, SourceNode, CompanyCollection, Company } from './entities'
     templateUrl: 'app.component.html',
     styleUrls: ['app.component.less', 'cy.less'],
     animations: [
-        trigger('warning', [
-            state('hide', style({ display: 'none' })),
-            state('show', style({ display: 'block' })),
+        trigger('showHide', [
+            state('hide', style({ 'display': 'none' })),
+            state('show', style({ 'display': 'block' })),
             transition('hide => show', [
                 style({ opacity: 0 }),
                 animate(300, style({ opacity: 1 }))
@@ -135,14 +135,14 @@ export class AppComponent implements OnInit {
             if (selected.length === 1) {
                 const target = selected[0]
                 const data = <NodeData>target.data()
-                const company = this.companies[data.node.name]
-                if (company) {
-                    this.company = company
+                this.company = this.companies[data.node.name]
+                if (this.company) {
                     this.$companyDlg.dialog('open')
                 } else {
                     this.showWarning(`查無${data.node.name}的資料。`)
                 }
             } else {
+                this.company = null
                 this.$companyDlg.dialog('close')
             }
         })
