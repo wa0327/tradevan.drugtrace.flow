@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
+import { trigger, state, style, animate, transition } from '@angular/animations'
 import { forkJoin } from 'rxjs/observable/forkJoin'
 import * as cytoscape from 'cytoscape'
 import { Core, ElementsDefinition, NodeDefinition, NodeDataDefinition, NodeCollection, EdgeDefinition, EdgeDataDefinition, EdgeCollection } from 'cytoscape'
@@ -10,10 +11,28 @@ import { Node, SourceNode, CompanyCollection, Company } from './entities'
 @Component({
     selector: 'app-root',
     templateUrl: 'app.component.html',
-    styleUrls: ['app.component.less', 'cy.less']
+    styleUrls: ['app.component.less', 'cy.less'],
+    animations: [
+        trigger('warning', [
+            state('hide', style({ display: 'none' })),
+            state('show', style({ display: 'block' })),
+            transition('hide => show', [
+                style({ opacity: 0 }),
+                animate(300, style({ opacity: 1 }))
+            ]),
+            transition('show => hide', [
+                style({ opacity: 1 }),
+                animate(500, style({ opacity: 0 }))
+            ])
+        ])
+    ]
 })
 export class AppComponent implements OnInit {
     constructor(private http: HttpClient) { }
+
+    warning = 'hide'
+    warningMessage: string
+    lastTimeout: any = null
 
     companies: CompanyCollection
     company: Company
@@ -101,6 +120,7 @@ export class AppComponent implements OnInit {
 
     private bindEvents(cy: Core) {
         cy.on('select unselect', 'node', () => {
+            this.hideWarning()
             const selected = cy.elements('node:selected')
             const outgoers = selected.outgoers()
             const targets = outgoers.targets()
@@ -117,7 +137,7 @@ export class AppComponent implements OnInit {
                 this.company = company
                 this.$companyDlg.dialog('open')
             } else {
-                alert(`查無 ${data.node.name} 的資料。`)
+                this.showWarning(`查無${data.node.name}的資料。`)
             }
         })
     }
@@ -131,6 +151,27 @@ export class AppComponent implements OnInit {
             resizable: false,
             position: { my: 'right top', at: 'right top', of: window }
         });
+    }
+
+    private showWarning(message: string) {
+        if (this.lastTimeout) {
+            clearTimeout(this.lastTimeout)
+        }
+
+        this.warningMessage = message
+        this.warning = 'show'
+        this.lastTimeout = setTimeout(() => {
+            this.hideWarning()
+        }, 3000)
+    }
+
+    private hideWarning() {
+        if (this.lastTimeout) {
+            clearTimeout(this.lastTimeout)
+            this.lastTimeout = null
+        }
+
+        this.warning = 'hide'
     }
 }
 
