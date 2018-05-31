@@ -1,9 +1,9 @@
 {
-  "name": "client",
+  "name": "drugtrace.flow",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "node build.js",
+    "build": "ng build",
     "start": "ng serve --host 10.37.129.2 --port 8080"
   },
   "repository": {
