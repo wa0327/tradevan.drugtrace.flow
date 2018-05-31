@@ -13,7 +13,7 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.json",
+            "tsConfig": "src/tsconfig.json",
             "outputPath": "dist",
             "styles": [
               "src/styles.less"
@@ -39,7 +39,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "app:build"
+            "browserTarget": "app:build",
+            "host": "10.37.129.2",
+            "port": 8080
           },
           "configurations": {
             "production": {

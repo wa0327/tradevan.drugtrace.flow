@@ -5,24 +5,34 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "node",
+            "request": "launch",
+            "name": "ng serve",
+            "program": "${workspaceFolder}/node_modules/.bin/ng",
+            "args": [
+                "serve"
+            ]
+        },
+        {
             "type": "chrome",
             "request": "launch",
-            "name": "launch client",
+            "name": "browser",
             "url": "http://10.37.129.2:8080/",
             "webRoot": "${workspaceFolder}"
         },
         {
             "type": "node",
             "request": "launch",
-            "name": "launch server",
+            "name": "serve",
             "runtimeArgs": [
                 "--require",
                 "ts-node/register"
             ],
             "args": [
-                "index.ts"
+                "serve.ts"
             ],
-            "cwd": "${workspaceFolder}/server"
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal"
         }
     ]
 }

@@ -1,18 +1,16 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "es6",
         "lib": [
-            "dom",
             "es6"
         ],
+        "module": "commonjs",
+        "moduleResolution": "node",
         "outDir": "out",
         "sourceMap": true,
-        "declaration": false,
-        "noImplicitAny": true,
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true
+        "noImplicitAny": true
     },
     "exclude": [
-        "server"
+        "src"
     ]
 }

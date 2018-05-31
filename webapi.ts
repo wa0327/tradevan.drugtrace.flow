@@ -1,7 +1,41 @@
-import { WorkSheet } from 'xlsx'
-import { Node, SourceNode, Company, Lot, CompanyCollection } from '../src/app/entities'
+import { readFile, WorkSheet } from 'xlsx'
+import { Node, SourceNode, Company, Lot, CompanyCollection } from './src/app/entities'
+import { Express } from 'express'
 
-export function parseFlowSheet(sheet: WorkSheet): SourceNode[] {
+const workbook = readFile('data.xlsx')
+const flowSheet = workbook.Sheets[workbook.SheetNames[0]]
+const flows = parseFlowSheet(flowSheet)
+const companySheet = workbook.Sheets[workbook.SheetNames[1]]
+const companies = parseCompanySheet(companySheet)
+
+export function appHook(app: Express) {
+    app.get(['/api/flows', '/api/companies'], (req, res) => {
+        let data: any
+
+        switch (req.url) {
+            case '/api/flows':
+                data = flows
+                break
+
+            case '/api/companies':
+                data = companies
+                break
+        }
+
+        if (data) {
+            res.setHeader('CONTENT-TYPE', 'application/json')
+            res.setHeader('Access-Control-Allow-Origin', '*')
+            res.write(JSON.stringify(data))
+            res.statusCode = 200
+        } else {
+            res.statusCode = 404
+        }
+
+        res.end()
+    })
+}
+
+function parseFlowSheet(sheet: WorkSheet): SourceNode[] {
     let db: { [key: string]: SourceNode } = {}
 
     for (let rowIndex = 2; ; rowIndex++) {
@@ -40,7 +74,7 @@ export function parseFlowSheet(sheet: WorkSheet): SourceNode[] {
     return result
 }
 
-export function parseCompanySheet(sheet: WorkSheet) {
+function parseCompanySheet(sheet: WorkSheet) {
     let db: CompanyCollection = {}
 
     for (let rowIndex = 2; ; rowIndex++) {
@@ -92,6 +126,6 @@ function strip(value: string) {
     return value.replace(/\"|\'/, '').trim()
 }
 
-export interface Cell {
+interface Cell {
     v: string
 }

@@ -30,8 +30,8 @@ export class AppComponent implements OnInit {
         cytoscape.use(<any>cose_bilkent)
 
         forkJoin(
-            this.http.get<SourceNode[]>('http://10.37.129.2:8088/api/flows'),
-            this.http.get<CompanyCollection>('http://10.37.129.2:8088/api/companies')
+            this.http.get<SourceNode[]>('/api/flows'),
+            this.http.get<CompanyCollection>('/api/companies')
         ).subscribe(dataArray => {
             const $container = $('div#cy')
             const elements = this.convert(dataArray[0])
