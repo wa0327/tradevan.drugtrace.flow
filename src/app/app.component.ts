@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { trigger, state, style, animate, transition } from '@angular/animations'
 import { forkJoin } from 'rxjs/observable/forkJoin'
 import * as cytoscape from 'cytoscape'
 import { Core, ElementsDefinition, NodeDefinition, NodeDataDefinition, NodeCollection, EdgeDefinition, EdgeDataDefinition, EdgeCollection } from 'cytoscape'
@@ -11,28 +10,21 @@ import { Node, SourceNode, CompanyCollection, Company } from './entities'
 @Component({
     selector: 'app-root',
     templateUrl: 'app.component.html',
-    styleUrls: ['app.component.less', 'cy.less'],
-    animations: [
-        trigger('showHide', [
-            state('hide', style({ 'display': 'none' })),
-            state('show', style({ 'display': 'block' })),
-            transition('hide => show', [
-                style({ opacity: 0 }),
-                animate(300, style({ opacity: 1 }))
-            ]),
-            transition('show => hide', [
-                style({ opacity: 1 }),
-                animate(500, style({ opacity: 0 }))
-            ])
-        ])
-    ]
+    styleUrls: ['app.component.less', 'cy.less']
 })
 export class AppComponent implements OnInit {
     constructor(private http: HttpClient) { }
 
-    warning = 'hide'
-    warningMessage: string
-    lastTimeout: any = null
+    warning:
+        {
+            text: string,
+            class: string,
+            timer: NodeJS.Timer
+        } = {
+            text: null,
+            class: 'hide',
+            timer: null
+        }
 
     companies: CompanyCollection
     company: Company
@@ -160,24 +152,24 @@ export class AppComponent implements OnInit {
     }
 
     private showWarning(message: string) {
-        if (this.lastTimeout) {
-            clearTimeout(this.lastTimeout)
+        if (this.warning.timer) {
+            clearTimeout(this.warning.timer)
         }
 
-        this.warningMessage = message
-        this.warning = 'show'
-        this.lastTimeout = setTimeout(() => {
+        this.warning.text = message
+        this.warning.class = 'show'
+        this.warning.timer = setTimeout(() => {
             this.hideWarning()
         }, 3000)
     }
 
     private hideWarning() {
-        if (this.lastTimeout) {
-            clearTimeout(this.lastTimeout)
-            this.lastTimeout = null
+        if (this.warning.timer) {
+            clearTimeout(this.warning.timer)
+            this.warning.timer = null
         }
 
-        this.warning = 'hide'
+        this.warning.class = 'hide'
     }
 }
 
